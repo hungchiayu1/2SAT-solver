@@ -85,7 +85,6 @@ def check_solution(result,clauses):
     return false_clause
        
         
-
 def randomize(path):
     clauses,n_var = read_clauses(path)
     result = [-1]*n_var ## Assign all to false
@@ -93,10 +92,12 @@ def randomize(path):
     while True:
         count+=1
         correct_clause = check_solution(result,clauses)
+        if count>100*n_var**2:
+            print("No solution")
+            return None,count
         if all(correct_clause):
             return result,count
         for i in range(len(correct_clause)):
-            
             if correct_clause[i]== False: ## This clause is not satisfied
                 first_literal = abs(int(clauses[i][0]))
                 second_literal = abs(int(clauses[i][1]))
