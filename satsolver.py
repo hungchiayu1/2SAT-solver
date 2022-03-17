@@ -54,9 +54,9 @@ def check_complement(SCC):
     return False
 def assignment(nodes,res):
     for i in nodes:
-        if res[abs(i)-1] == 0 :  ## havent assigned
+        if res[abs(i)-1] == -1 :  ## havent assigned
             if i<0:
-                res[abs(i)-1] = -1 ## if we find the negative edge first,assigned it false
+                res[abs(i)-1] = 0 ## if we find the negative edge first,assigned it false
                  ## this imply comp[u]<comp[~u]
             else:
                 res[abs(i)-1] = 1
@@ -69,7 +69,7 @@ def find_SCC(graph):
     first = 1
     visited = {k:-1 for k in graph.keys()}
     satisfiable = True
-    result = [0]*int(len(post_order)/2)
+    result = [-1]*int(len(post_order)/2)
     for i in reversed(post_order):
         if(visited[i]==-1):
             nodes = explore_node(graph,i,visited,[])  ## O(V+E) time total

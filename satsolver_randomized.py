@@ -56,25 +56,25 @@ def check_solution(result,clauses):
         num2 = int(second_literal)
         if num1<0:  
             num1 = -1*num1
-            if result[num1-1]==-1:
+            if result[num1-1]==0:
                 valid1 = True
             else:
                 valid1 = False
         else:
             valid1 = result[num1-1]
-            if result[num1-1]==-1:
+            if result[num1-1]==0:
                 valid1 = False
             else:
                 valid1 = True
         if num2<0:
             num2 = -1*num2
-            if result[num2-1] == -1:
+            if result[num2-1] == 0:
                 valid2 = True
             else:
                 valid2 = False
             
         else:
-            if result[num2-1] == -1:
+            if result[num2-1] == 0:
                 valid2 = False
             else:
                 valid2 = True
@@ -87,7 +87,7 @@ def check_solution(result,clauses):
         
 def randomize(path):
     clauses,n_var = read_clauses(path)
-    result = [-1]*n_var ## Assign all to false
+    result = [0]*n_var ## Assign all to false
     count = 0
     while True:
         count+=1
@@ -103,16 +103,16 @@ def randomize(path):
                 second_literal = abs(int(clauses[i][1]))
                 ran = random.randint(0,1)
                 if ran == 1:
-                    if result[first_literal-1]==-1:
+                    if result[first_literal-1]==0:
                         result[first_literal-1]=1
                     else:
-                        result[first_literal-1] = -1
+                        result[first_literal-1] = 0
                     break
                 else:
-                    if result[second_literal-1]==-1:
+                    if result[second_literal-1]==0:
                         result[second_literal-1]=1
                     else:
-                        result[second_literal-1] = -1
+                        result[second_literal-1] = 0
                     break
     return result,count
                
