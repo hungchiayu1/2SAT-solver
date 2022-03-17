@@ -1,3 +1,4 @@
+import random
 def create_test_case(n_var,n_clause,path):
     flip = 1
     clause = []
@@ -5,14 +6,18 @@ def create_test_case(n_var,n_clause,path):
     f.writelines('p cnf {} {}'.format(n_var,n_clause))
     f.writelines('\n')
     for i in range(1,n_clause+1):
-        curr = flip*i
-        rand = 0
-        while rand==0: ## generate a random number that is not 0
-             rand = random.randint(-1*n_clause,n_clause)
-        if curr>n_clause:
-            curr = n_clause%n_var
+        if i%n_var==0:
+            continue
+        if i>n_var:
+            curr = i%n_var
             if curr ==1 and flip == -1:
                 flip = 1
+        else:
+            curr = i
+        curr = flip*curr
+        rand = 0
+        while rand==0: ## generate a random number that is not 0
+             rand = random.randint(-1*n_var,n_var)
         clause.append([curr,rand])
         flip*=-1
         f.writelines("{} {} 0".format(curr,rand))
